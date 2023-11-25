@@ -12,10 +12,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'my-collection';
+  data: any
 
   constructor(private http: HttpClient) {
-    this.http.get('https://service-collection-production.up.railway.app/manga').subscribe((data) =>
-      console.log('data ==>', data)
+    this.http.get('https://service-collection-production.up.railway.app/manga').subscribe((data :any) => {
+      this.data = data[0];
+      console.log('data ==>', this.data.name);
+    }
     )
   }
 }
