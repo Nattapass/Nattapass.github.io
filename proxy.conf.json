@@ -1,0 +1,10 @@
+{
+    "/api": {
+        "target": "https://service-collection-production.up.railway.app",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": ""
+          }
+      }
+  }
