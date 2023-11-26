@@ -23,7 +23,7 @@ export class RegisterComponent {
   });
 
   onSubmit() {
-    this.http.post<any>('/api/manga', this.listForm.value).subscribe(
+    this.http.post<any>('https://service-collection-production.up.railway.app/manga', this.listForm.value).subscribe(
       (data) => {
         console.log('HTTP request successful', data);
         // Handle the data or update component properties here

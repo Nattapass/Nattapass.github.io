@@ -17,7 +17,7 @@ export class MangaListComponent {
   }
 
   getData() {
-    this.http.get<any>('/api/manga').subscribe({
+    this.http.get<any>('https://service-collection-production.up.railway.app/manga').subscribe({
       next: (data)=>{
         console.log('data', data[0]);
         
