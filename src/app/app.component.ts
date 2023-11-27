@@ -18,6 +18,6 @@ export class AppComponent {
 
   toggle() {
     this.isShow = !this.isShow;
-    // ng build --output-path docs --base-href /repository-name/
+    // ng build --output-path docs --base-href /my-collection/
   }
 }
