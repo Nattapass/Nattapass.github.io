@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,8 @@ export class RegisterComponent {
     lastUpDate: new FormControl(''),
     status: new FormControl(''),
     totalVol: new FormControl(''),
+    imgUrl: new FormControl(''),
+    type: new FormControl(''),
   });
   mangaList: any;
   selectedManga: any;
@@ -40,11 +43,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    console.log('lastUpDate ===>', this.listForm.value);
-
     if (this.selectedManga && this.selectedManga.no) {
-      console.log('this.selectedManga.no', this.selectedManga.no);
-      
       this.http
         .put(
           `https://service-collection-production.up.railway.app/manga/no/${this.selectedManga.no}`,
@@ -53,10 +52,19 @@ export class RegisterComponent {
         .subscribe({
           next: (data) => {
             console.log('HTTP request successful', data);
+            Swal.fire({
+              title: 'Update Success!',
+              text: '',
+              icon: 'success',
+            });
             // Handle the data or update component properties here
           },
           error: (error) => {
-            console.error('HTTP request failed', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Update Failed',
+              text: error,
+            });
             // Handle the error here
           },
         });
@@ -68,11 +76,19 @@ export class RegisterComponent {
         )
         .subscribe({
           next: (data) => {
-            console.log('HTTP request successful', data);
-            // Handle the data or update component properties here
+            Swal.fire({
+              title: 'Update Success!',
+              text: '',
+              icon: 'success',
+            });
+            this.listForm.reset();
           },
           error: (error) => {
-            console.error('HTTP request failed', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Update Failed',
+              text: error,
+            });
             // Handle the error here
           },
         });
@@ -91,6 +107,8 @@ export class RegisterComponent {
       lastUpDate: this.selectedManga.lastUpDate,
       status: this.selectedManga.status,
       totalVol: this.selectedManga.totalVol,
+      imgUrl: this.selectedManga.imgUrl,
+      type: this.selectedManga.type,
     });
   }
 }

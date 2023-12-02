@@ -105,10 +105,9 @@
           </div> -->
 
         <div class="sm:col-span-3">
-          <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Manga Name</label>
+          <label for="mangaName" class="block text-sm font-medium leading-6 text-gray-900">Manga Name</label>
           <div class="mt-2">
-            <select id="country" name="country" autocomplete="country-name"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900
+            <select id="mangaName" name="mangaName" autocomplete="manga-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900
                shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset 
                focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6
                " (change)="onSelectManga($event)">
@@ -137,6 +136,14 @@
         </div>
 
         <div class="sm:col-span-2">
+          <label for="Type" class="block text-sm font-medium leading-6 text-gray-900">Type</label>
+          <div class="mt-2">
+            <input formControlName="type" type="text" name="Type" id="Type"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
           <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">startDate</label>
           <div class="mt-2">
             <input formControlName="startDate" type="text" name="postal-code" id="postal-code"
@@ -146,7 +153,7 @@
         </div>
 
 
-        <div class="sm:col-span-2 sm:col-start-1">
+        <div class="sm:col-span-2 ">
           <label for="city" class="block text-sm font-medium leading-6 text-gray-900">lastUpdate</label>
           <div class="mt-2">
             <input formControlName="lastUpDate" type="text" name="city" id="city" autocomplete="address-level2"
@@ -154,19 +161,35 @@
           </div>
         </div>
 
+
         <div class="sm:col-span-2">
-          <label for="region" class="block text-sm font-medium leading-6 text-gray-900">status</label>
+          <label for="totalVol" class="block text-sm font-medium leading-6 text-gray-900">totalVol</label>
           <div class="mt-2">
-            <input formControlName="status" type="text" name="region" id="region" autocomplete="address-level1"
+            <input formControlName="totalVol" type="text" name="totalVol" id="totalVol"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:col-span-2">
-          <label for="region" class="block text-sm font-medium leading-6 text-gray-900">totalVol</label>
+          <label for="ImageUrl" class="block text-sm font-medium leading-6 text-gray-900">ImageUrl</label>
           <div class="mt-2">
-            <input formControlName="totalVol" type="text" name="region" id="region" autocomplete="address-level1"
+            <input formControlName="imgUrl" type="text" name="ImageUrl" id="ImageUrl"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        
+        <div class="sm:col-span-2">
+          <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Status</label>
+          <div class="mt-2">
+            <select id="status" name="status" autocomplete="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900
+               shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset 
+               focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6
+               " formControlName="status">
+              <option value="" selected disabled>Select a Status</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Finished">Finished</option>
+              <option value="Dropped">Dropped</option>
+            </select>
           </div>
         </div>
 
