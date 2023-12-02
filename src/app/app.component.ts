@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
+
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
