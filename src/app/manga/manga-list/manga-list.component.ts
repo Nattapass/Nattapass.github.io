@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-manga-list',
   standalone: true,
-  imports: [CommonModule, NgbPaginationModule],
+  imports: [CommonModule, NgbPaginationModule, NgbDropdownModule],
   templateUrl: './manga-list.component.html',
   styleUrl: './manga-list.component.scss',
 })
@@ -33,5 +33,19 @@ export class MangaListComponent {
           console.error(error);
         },
       });
+  }
+
+  sortBy(sortType:string){
+    switch (sortType) {
+      case 'New':
+        this.mangaList = this.mangaList.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        break;
+      case 'Old':
+        this.mangaList = this.mangaList.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+        break;
+      default:
+        this.mangaList = this.mangaList.sort((a, b) => +a.no - +b.no);
+        break;
+    }
   }
 }

@@ -1,8 +1,21 @@
 <div class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Manga List</h2>
+  <div class="mx-auto max-w-2xl px-4 py-2 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="d-flex justify-between">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Manga List</h2>
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+          Sort By
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="sortBy('New')">Sort By Newest</button>
+          <button ngbDropdownItem (click)="sortBy('Old')">Sory By Oldest</button>
+          <button ngbDropdownItem (click)="sortBy('No')">Sort By No</button>
+        </div>
+      </div>
+    </div>
+
     <ngb-pagination class="d-flex justify-content-end mt-6" [collectionSize]="mangaList.length" [(page)]="page"
-    [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20" size="lg" />
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20"  />
     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
 
       @for (item of mangaList | slice: (page-1) * 20 : page * 20; track item) {
@@ -33,6 +46,6 @@
       }
     </div>
     <ngb-pagination class="d-flex justify-content-end mt-6" [collectionSize]="mangaList.length" [(page)]="page"
-    [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20" size="lg" />
+      [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20" />
   </div>
 </div>
