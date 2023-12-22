@@ -10,9 +10,13 @@
           <button ngbDropdownItem (click)="sortBy('New')">Sort By Newest</button>
           <button ngbDropdownItem (click)="sortBy('Old')">Sory By Oldest</button>
           <button ngbDropdownItem (click)="sortBy('No')">Sort By No</button>
+          <button ngbDropdownItem (click)="sortBy('LastUpdated')">Sort By LastUpdated</button>
+          <button ngbDropdownItem (click)="sortBy('startDated')">Sort By StartUpdated</button>
         </div>
       </div>
     </div>
+
+
 
     <ngb-pagination class="d-flex justify-content-end mt-6" [collectionSize]="mangaList.length" [(page)]="page"
       [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20"  />
