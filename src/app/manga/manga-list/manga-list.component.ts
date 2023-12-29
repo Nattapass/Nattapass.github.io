@@ -61,7 +61,7 @@ export class MangaListComponent {
         case 'startDated':
           this.mangaList = this.mangaList
             .map((data) => {
-              data.filterDate = this.mapDate(data.lastUpDate);
+              data.filterDate = this.mapDate(data.startDate);
               return data;
             })
             .sort((a, b) => a.filterDate.getTime() - b.filterDate.getTime());
