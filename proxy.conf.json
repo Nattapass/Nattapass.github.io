@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://service-collection-production.up.railway.app",
+        "target": "https://service-collection.vercel.app/manga",
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": {

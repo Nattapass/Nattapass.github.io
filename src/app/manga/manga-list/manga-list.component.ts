@@ -1,15 +1,37 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   NgbDropdownModule,
   NgbPaginationModule,
+  NgbTypeahead,
+  NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { log } from 'console';
+import {
+  Subject,
+  OperatorFunction,
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  merge,
+  map,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-manga-list',
   standalone: true,
-  imports: [CommonModule, NgbPaginationModule, NgbDropdownModule],
+  imports: [
+    CommonModule,
+    NgbPaginationModule,
+    NgbDropdownModule,
+    NgbTypeaheadModule,
+    FormsModule,
+    JsonPipe,
+  ],
   templateUrl: './manga-list.component.html',
   styleUrl: './manga-list.component.scss',
 })
@@ -21,9 +43,57 @@ export class MangaListComponent {
     this.getData();
   }
 
+  model: any;
+  // search: OperatorFunction<string, readonly string[]> = (
+  //   text$: Observable<string>
+  // ) => {
+  //   const debouncedText$ = text$.pipe(
+  //     debounceTime(200),
+  //     distinctUntilChanged()
+  //   );
+  //   const clicksWithClosedPopup$ = this.click$.pipe(
+  //     filter(() => !this.instance.isPopupOpen())
+  //   );
+  //   const inputFocus$ = this.focus$;
+
+  //   return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+  //     map((term) =>
+  //       (term === ''
+  //         ? this.mangaList
+  //         : this.mangaList.filter((v) => {
+  //             console.log('term ==>', term);
+  //             console.log(
+  //               'filter',
+  //               v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+  //             );
+  //             return v.name.toLowerCase().indexOf(term.toLowerCase()) > -1;
+  //           })
+  //       ).slice(0, 10)
+  //     )
+  //   );
+  // };
+
+  search: OperatorFunction<string, readonly any[]> = (
+    text$: Observable<string>
+  ) =>
+    text$.pipe(
+      debounceTime(200),
+      map((term) =>
+        term === ''
+          ? []
+          : this.mangaList
+              .filter(
+                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+              )
+              .slice(0, 10)
+      )
+    );
+
+  formatter = (x: { name: string }) => x.name;
+
   getData() {
     this.http
-      .get<any>('https://service-collection-production.up.railway.app/manga')
+      .get<any>('https://service-collection.vercel.app/manga')
       .subscribe({
         next: (data) => {
           console.log('data', data[0]);
@@ -58,14 +128,14 @@ export class MangaListComponent {
           })
           .sort((a, b) => b.filterDate.getTime() - a.filterDate.getTime());
         break;
-        case 'startDated':
-          this.mangaList = this.mangaList
-            .map((data) => {
-              data.filterDate = this.mapDate(data.startDate);
-              return data;
-            })
-            .sort((a, b) => a.filterDate.getTime() - b.filterDate.getTime());
-          break;  
+      case 'startDated':
+        this.mangaList = this.mangaList
+          .map((data) => {
+            data.filterDate = this.mapDate(data.startDate);
+            return data;
+          })
+          .sort((a, b) => a.filterDate.getTime() - b.filterDate.getTime());
+        break;
       default:
         this.mangaList = this.mangaList.sort((a, b) => +a.no - +b.no);
         break;

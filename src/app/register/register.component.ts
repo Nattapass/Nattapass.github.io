@@ -31,7 +31,7 @@ export class RegisterComponent {
 
   getManga() {
     this.http
-      .get<any>('https://service-collection-production.up.railway.app/manga')
+      .get<any>('https://service-collection.vercel.app/manga')
       .subscribe({
         next: (data) => {
           this.mangaList = data;
@@ -46,7 +46,7 @@ export class RegisterComponent {
     if (this.selectedManga && this.selectedManga.no) {
       this.http
         .put(
-          `https://service-collection-production.up.railway.app/manga/no/${this.selectedManga.no}`,
+          `https://service-collection.vercel.app/manga/no/${this.selectedManga.no}`,
           this.listForm.value
         )
         .subscribe({
@@ -71,7 +71,7 @@ export class RegisterComponent {
     } else {
       this.http
         .post<any>(
-          'https://service-collection-production.up.railway.app/manga',
+          'https://service-collection.vercel.app/manga',
           this.listForm.value
         )
         .subscribe({
