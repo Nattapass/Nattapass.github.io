@@ -59,7 +59,6 @@ export class RegisterComponent {
       // Add any other custom headers here
       // 'Access-Control-Allow-Origin': '*'
     });
-
     const options = { headers };
     if (this.selectedManga && this.selectedManga.no) {
       this.http
@@ -116,11 +115,8 @@ export class RegisterComponent {
   }
 
   onSelectManga(event: any) {
-    console.log('event', event);
     const selectedIndex = event.item;
     this.selectedManga = selectedIndex;
-    console.log('selectedManga', this.selectedManga);
-
     this.listForm.setValue({
       name: this.selectedManga.name,
       licence: this.selectedManga.licence,
