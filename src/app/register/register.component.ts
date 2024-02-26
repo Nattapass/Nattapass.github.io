@@ -1,13 +1,18 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { OperatorFunction, Observable, debounceTime, map } from 'rxjs';
+import { IManga } from '../manga/interface/manga.interface';
+import { Store } from '@ngrx/store';
+import { loadManga } from '../manga/ngrx/action/manga.action';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, JsonPipe, NgbTypeaheadModule, FormsModule,],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -22,11 +27,16 @@ export class RegisterComponent {
     imgUrl: new FormControl(''),
     type: new FormControl(''),
   });
-  mangaList: any;
-  selectedManga: any;
+  mangaList$ = this.store.select(state => state.manga);
+  mangaList: Array<IManga> = [];
+  selectedManga!: IManga;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private store: Store<{ manga: IManga[] }>) {
     this.getManga();
+    this.store.dispatch(loadManga());
+    this.mangaList$.subscribe((data) => {
+      this.mangaList = data
+    })
   }
 
   getManga() {
@@ -43,11 +53,20 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // withCredentials: true,
+      // Add any other custom headers here
+      // 'Access-Control-Allow-Origin': '*'
+    });
+
+    const options = { headers };
     if (this.selectedManga && this.selectedManga.no) {
       this.http
         .put(
           `https://service-collection.vercel.app/manga/no/${this.selectedManga.no}`,
-          this.listForm.value
+          this.listForm.value,
+          { withCredentials: true }
         )
         .subscribe({
           next: (data) => {
@@ -72,7 +91,8 @@ export class RegisterComponent {
       this.http
         .post<any>(
           'https://service-collection.vercel.app/manga',
-          this.listForm.value
+          this.listForm.value,
+          { withCredentials: true }
         )
         .subscribe({
           next: (data) => {
@@ -96,8 +116,9 @@ export class RegisterComponent {
   }
 
   onSelectManga(event: any) {
-    const selectedIndex = event.target.value;
-    this.selectedManga = this.mangaList[selectedIndex];
+    console.log('event', event);
+    const selectedIndex = event.item;
+    this.selectedManga = selectedIndex;
     console.log('selectedManga', this.selectedManga);
 
     this.listForm.setValue({
@@ -111,4 +132,24 @@ export class RegisterComponent {
       type: this.selectedManga.type,
     });
   }
+
+  model!: IManga;
+
+  search: OperatorFunction<string, readonly any[]> = (
+    text$: Observable<string>
+  ) =>
+    text$.pipe(
+      debounceTime(200),
+      map((term) =>
+        term === ''
+          ? []
+          : this.mangaList
+            .filter(
+              (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+            )
+            .slice(0, 10)
+      )
+    );
+
+  formatter = (x: { name: string }) => x.name;
 }

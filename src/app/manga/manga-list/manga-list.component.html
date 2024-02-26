@@ -3,8 +3,8 @@
     <div class="d-flex justify-between">
       <h2 class="text-2xl font-bold tracking-tight text-gray-900">Manga List</h2>
       <div class="d-inline-block">
-          <input id="typeahead-template" type="text" class="form-control col" [(ngModel)]="model"
-            [ngbTypeahead]="search" [inputFormatter]="formatter" [resultFormatter]="formatter" [selectOnExact]="true" />
+        <input id="typeahead-template" type="text" class="form-control col" [(ngModel)]="model" [ngbTypeahead]="search"
+          [inputFormatter]="formatter" [resultFormatter]="formatter" [selectOnExact]="true"  />
       </div>
       <div ngbDropdown class="d-inline-block">
         <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
@@ -52,7 +52,7 @@
       [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [pageSize]="20" />
     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
 
-      @for (item of mangaList | slice: (page-1) * 20 : page * 20; track item) {
+      @for (item of mangaList$|async | slice: (page-1) * 20 : page * 20; track item) {
       <div class="group relative p-1 "
         [ngClass]="[(item.status === 'Finished' ? 'border-solid border-green-500 border-4 rounded-md' : 'border-solid border-inherit border-2 rounded-md')]">
         <div

@@ -1,5 +1,4 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -8,19 +7,18 @@ import {
   NgbTypeahead,
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { log } from 'console';
 import {
-  Subject,
   OperatorFunction,
   Observable,
   debounceTime,
-  distinctUntilChanged,
-  filter,
-  merge,
   map,
-  tap,
+  takeUntil,
+  Subject,
 } from 'rxjs';
-
+import { MangaService } from '../service/manga.service';
+import { IManga } from '../interface/manga.interface';
+import { Store } from '@ngrx/store';
+import { loadManga } from '../ngrx/action/manga.action';
 @Component({
   selector: 'app-manga-list',
   standalone: true,
@@ -30,48 +28,27 @@ import {
     NgbDropdownModule,
     NgbTypeaheadModule,
     FormsModule,
-    JsonPipe,
+    JsonPipe
   ],
   templateUrl: './manga-list.component.html',
   styleUrl: './manga-list.component.scss',
 })
 export class MangaListComponent {
-  mangaList: Array<any> = [];
+  mangaList$ = this.store.select(state => state.manga);
+  mangaList: Array<IManga> = [];
   page = 1;
+  private ngUnsubscribe = new Subject();
 
-  constructor(private http: HttpClient) {
+
+  constructor(private mangaService: MangaService, private store: Store<{ manga: IManga[] }>) {
     this.getData();
+    this.store.dispatch(loadManga());
+    this.mangaList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
+      this.mangaList = data
+    })
   }
 
-  model: any;
-  // search: OperatorFunction<string, readonly string[]> = (
-  //   text$: Observable<string>
-  // ) => {
-  //   const debouncedText$ = text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged()
-  //   );
-  //   const clicksWithClosedPopup$ = this.click$.pipe(
-  //     filter(() => !this.instance.isPopupOpen())
-  //   );
-  //   const inputFocus$ = this.focus$;
-
-  //   return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-  //     map((term) =>
-  //       (term === ''
-  //         ? this.mangaList
-  //         : this.mangaList.filter((v) => {
-  //             console.log('term ==>', term);
-  //             console.log(
-  //               'filter',
-  //               v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
-  //             );
-  //             return v.name.toLowerCase().indexOf(term.toLowerCase()) > -1;
-  //           })
-  //       ).slice(0, 10)
-  //     )
-  //   );
-  // };
+  model!: IManga;
 
   search: OperatorFunction<string, readonly any[]> = (
     text$: Observable<string>
@@ -82,22 +59,19 @@ export class MangaListComponent {
         term === ''
           ? []
           : this.mangaList
-              .filter(
-                (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
-              )
-              .slice(0, 10)
+            .filter(
+              (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+            )
+            .slice(0, 10)
       )
     );
 
   formatter = (x: { name: string }) => x.name;
 
   getData() {
-    this.http
-      .get<any>('https://service-collection.vercel.app/manga')
+    this.mangaService.getMangaList()
       .subscribe({
         next: (data) => {
-          console.log('data', data[0]);
-
           this.mangaList = data;
         },
         error: (error) => {
@@ -126,7 +100,7 @@ export class MangaListComponent {
             data.filterDate = this.mapDate(data.lastUpDate);
             return data;
           })
-          .sort((a, b) => b.filterDate.getTime() - a.filterDate.getTime());
+          .sort((a, b) => b.filterDate!.getTime() - a.filterDate!.getTime());
         break;
       case 'startDated':
         this.mangaList = this.mangaList
@@ -134,7 +108,7 @@ export class MangaListComponent {
             data.filterDate = this.mapDate(data.startDate);
             return data;
           })
-          .sort((a, b) => a.filterDate.getTime() - b.filterDate.getTime());
+          .sort((a, b) => a.filterDate!.getTime() - b.filterDate!.getTime());
         break;
       default:
         this.mangaList = this.mangaList.sort((a, b) => +a.no - +b.no);

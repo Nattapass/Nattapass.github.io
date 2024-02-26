@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://service-collection.vercel.app/manga",
+        "target": "https://service-collection.vercel.app",
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": {
