@@ -97,16 +97,16 @@ export class MangaListComponent {
       case 'LastUpdated':
         this.mangaList = this.mangaList
           .map((data) => {
-            data.filterDate = this.mapDate(data.lastUpDate);
-            return data;
+            // data.filterDate = this.mapDate(data.lastUpDate);
+            return { ...data, filterDate: this.mapDate(data.lastUpDate) };;
           })
           .sort((a, b) => b.filterDate!.getTime() - a.filterDate!.getTime());
         break;
       case 'startDated':
         this.mangaList = this.mangaList
           .map((data) => {
-            data.filterDate = this.mapDate(data.startDate);
-            return data;
+            // data.filterDate = this.mapDate(data.startDate);
+            return { ...data, filterDate: this.mapDate(data.lastUpDate) };;
           })
           .sort((a, b) => a.filterDate!.getTime() - b.filterDate!.getTime());
         break;
