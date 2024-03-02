@@ -6,3 +6,12 @@ export const loadMangaSuccess = createAction(
   '[Manga] Load Manga List Success',
   props<{ mangaList: IManga[] }>()
 );
+export const addManga = createAction(
+  '[Manga] Add Manga',
+  props<{ manga: IManga }>()
+);
+
+export const updateManga = createAction(
+  '[Manga] update Manga',
+  props<{ mangaNo: string, mangaUpdate: IManga }>()
+);

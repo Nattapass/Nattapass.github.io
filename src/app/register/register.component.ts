@@ -7,7 +7,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { OperatorFunction, Observable, debounceTime, map } from 'rxjs';
 import { IManga } from '../manga/interface/manga.interface';
 import { Store } from '@ngrx/store';
-import { loadManga } from '../manga/ngrx/action/manga.action';
+import { addManga, loadManga, updateManga } from '../manga/ngrx/action/manga.action';
 
 @Component({
   selector: 'app-register',
@@ -70,6 +70,7 @@ export class RegisterComponent {
         .subscribe({
           next: (data) => {
             console.log('HTTP request successful', data);
+            this.store.dispatch(updateManga({ mangaNo: this.selectedManga.no, mangaUpdate: this.selectedManga }))
             Swal.fire({
               title: 'Update Success!',
               text: '',
@@ -94,7 +95,8 @@ export class RegisterComponent {
           { withCredentials: true }
         )
         .subscribe({
-          next: (data) => {
+          next: (data: IManga) => {
+            this.store.dispatch(addManga({ manga: data }))
             Swal.fire({
               title: 'Update Success!',
               text: '',
