@@ -32,8 +32,8 @@ export class RegisterComponent {
   selectedManga!: IManga;
 
   constructor(private http: HttpClient, private store: Store<{ manga: IManga[] }>) {
-    this.getManga();
-    this.store.dispatch(loadManga());
+    // this.getManga();
+    // this.store.dispatch(loadManga());
     this.mangaList$.subscribe((data) => {
       this.mangaList = data
     })

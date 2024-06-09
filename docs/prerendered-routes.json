@@ -1,6 +1,7 @@
 {
   "routes": [
     "/manga",
+    "/model-kit",
     "/register"
   ]
 }

@@ -41,7 +41,7 @@ export class MangaListComponent {
 
 
   constructor(private mangaService: MangaService, private store: Store<{ manga: IManga[] }>) {
-    this.getData();
+    // this.getData();
     this.store.dispatch(loadManga());
     this.mangaList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.mangaList = data
