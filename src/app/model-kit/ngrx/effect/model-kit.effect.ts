@@ -13,7 +13,7 @@ export class ModelKitEffects {
         mergeMap(() => this.modelkitService.getModelKitList()
             .pipe(
                 tap((data) => {
-                    console.log('data is ===>', data);
+                    // console.log('data is ===>', data);
                 }),
                 map(data => (loadModelKitSuccess({ modelKitList: data }))),
                 catchError(() => EMPTY)

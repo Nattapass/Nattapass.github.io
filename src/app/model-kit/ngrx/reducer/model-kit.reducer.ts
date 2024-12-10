@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import { addModelKit, loadModelKitSuccess } from '../action/model-kit.action';
-import { IManga } from '../../../manga/interface/manga.interface';
 import { IModelKit } from '../../interface/manga.interface';
 
 export const initialState: IModelKit[] = [];

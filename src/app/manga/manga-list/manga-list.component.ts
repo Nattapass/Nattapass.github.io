@@ -20,18 +20,16 @@ import { IManga } from '../interface/manga.interface';
 import { Store } from '@ngrx/store';
 import { loadManga } from '../ngrx/action/manga.action';
 @Component({
-  selector: 'app-manga-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NgbPaginationModule,
-    NgbDropdownModule,
-    NgbTypeaheadModule,
-    FormsModule,
-    JsonPipe
-  ],
-  templateUrl: './manga-list.component.html',
-  styleUrl: './manga-list.component.scss',
+    selector: 'app-manga-list',
+    imports: [
+        CommonModule,
+        NgbPaginationModule,
+        NgbDropdownModule,
+        NgbTypeaheadModule,
+        FormsModule
+    ],
+    templateUrl: './manga-list.component.html',
+    styleUrl: './manga-list.component.scss'
 })
 export class MangaListComponent {
   mangaList$ = this.store.select(state => state.manga);
@@ -127,4 +125,6 @@ export class MangaListComponent {
     const [day, month, year] = filter.split('/').map(Number);
     return new Date(year, month - 1, day);
   }
+
+
 }

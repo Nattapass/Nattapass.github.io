@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()),
   provideStore(),
   provideState({ name: 'manga', reducer: mangaReducer }),
-  provideState({ name: 'model-kit', reducer: modelKitReducer }),
+  provideState({ name: 'modelKit', reducer: modelKitReducer }),
   provideEffects(MangaEffects),
   provideEffects(ModelKitEffects),
   provideStoreDevtools()

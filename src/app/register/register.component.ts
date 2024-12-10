@@ -11,10 +11,9 @@ import { addManga, loadManga, updateManga } from '../manga/ngrx/action/manga.act
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, JsonPipe, NgbTypeaheadModule, FormsModule,],
+  imports: [CommonModule, ReactiveFormsModule, NgbTypeaheadModule, FormsModule,],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   listForm = new FormGroup({
@@ -30,6 +29,7 @@ export class RegisterComponent {
   mangaList$ = this.store.select(state => state.manga);
   mangaList: Array<IManga> = [];
   selectedManga!: IManga;
+  isLoading = false;
 
   constructor(private http: HttpClient, private store: Store<{ manga: IManga[] }>) {
     // this.getManga();
@@ -53,6 +53,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       // withCredentials: true,
@@ -69,6 +70,7 @@ export class RegisterComponent {
         )
         .subscribe({
           next: (data) => {
+            this.isLoading = false
             console.log('HTTP request successful', data);
             this.store.dispatch(updateManga({ mangaNo: this.selectedManga.no, mangaUpdate: this.selectedManga }))
             Swal.fire({
@@ -96,6 +98,7 @@ export class RegisterComponent {
         )
         .subscribe({
           next: (data: IManga) => {
+            this.isLoading = false
             this.store.dispatch(addManga({ manga: data }))
             Swal.fire({
               title: 'Update Success!',
