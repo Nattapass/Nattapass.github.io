@@ -1,7 +1,8 @@
 {
-  "routes": [
-    "/manga",
-    "/model-kit",
-    "/register"
-  ]
+  "routes": {
+    "/my-collection": {},
+    "/my-collection/manga": {},
+    "/my-collection/model-kit": {},
+    "/my-collection/register": {}
+  }
 }
