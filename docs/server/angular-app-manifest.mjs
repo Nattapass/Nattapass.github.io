@@ -6,8 +6,8 @@ export default {
   locale: undefined,
   routes: undefined,
   assets: {
-    'index.csr.html': {size: 2542, hash: '8715bae0ee0ff71aa114470907b67cc0b4c4a0645ae7a8c46876f697e945fed1', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 1358, hash: 'f2d12008204b97ca98438835401f2c49aba6dfa7ce42134400b97df314283d8f', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 2542, hash: 'f8b21822dd440561161f3e3fc3117df90d06355d97b6cc8a13c97671f8cb72e5', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 1358, hash: 'd5f469de33124e0effe2ed2cc945b2b5979fb6838aa8a09f98efcb2a0d868021', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
     'styles-ES666NSD.css': {size: 41872, hash: 'polUG9fdQtw', text: () => import('./assets-chunks/styles-ES666NSD_css.mjs').then(m => m.default)}
   },
 };
