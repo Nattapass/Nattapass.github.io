@@ -28,7 +28,7 @@ export class ModelKitListComponent {
     this.store.dispatch(loadModelKit());
     this.modelKitList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.modelKitList = data
-      // console.log('this.modelKitList', this.modelKitList)
+      console.log('this.modelKitList')
     })
   }
 }

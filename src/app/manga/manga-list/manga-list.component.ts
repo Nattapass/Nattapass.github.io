@@ -43,6 +43,8 @@ export class MangaListComponent {
     this.store.dispatch(loadManga());
     this.mangaList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.mangaList = data
+      console.log('in mangalist');
+      
     })
   }
 

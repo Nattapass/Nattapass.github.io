@@ -13,7 +13,7 @@ export class MangaEffects {
         mergeMap(() => this.mangaService.getMangaList()
             .pipe(
                 tap((data) => {
-                    // console.log('data is ===>', data);
+                    console.log('data is ===>', data);
                 }),
                 map(mangas => (loadMangaSuccess({ mangaList: mangas }))),
                 catchError(() => EMPTY)
