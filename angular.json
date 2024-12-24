@@ -41,7 +41,8 @@
               "sass": {
                 "silenceDeprecations": ["mixed-decls", "color-functions", "global-builtin", "import"]
               }
-            }
+            },
+            "baseHref": "/my-collection/"
           },
           "configurations": {
             "production": {

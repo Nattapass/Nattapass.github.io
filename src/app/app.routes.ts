@@ -23,7 +23,7 @@ export const routes: Routes = [
     component: MangaListComponent,
   },
   {
-    path: '**', // Wildcard route for a 404 page
-    component: DashboardComponent, // Replace with your 404 component
-  },
+    path: 'dashboard',
+    component: DashboardComponent,
+  }
 ];
