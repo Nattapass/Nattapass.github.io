@@ -10,7 +10,7 @@ import { NgbPaginationModule, NgbDropdownModule, NgbTypeaheadModule } from '@ng-
 @Component({
   selector: 'app-model-kit-list',
   imports: [
-    CommonModule, 
+    CommonModule,
     NgbPaginationModule,
     NgbDropdownModule,
     NgbTypeaheadModule,],
@@ -24,7 +24,9 @@ export class ModelKitListComponent {
   private ngUnsubscribe = new Subject();
 
   constructor(private store: Store<{ modelKit: IModelKit[] }>) {
-    // this.getData();
+  }
+
+  ngOnInit() {
     this.store.dispatch(loadModelKit());
     this.modelKitList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.modelKitList = data
