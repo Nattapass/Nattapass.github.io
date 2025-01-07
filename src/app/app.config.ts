@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { modelKitReducer } from './model-kit/ngrx/reducer/model-kit.reducer';
 import { ModelKitEffects } from './model-kit/ngrx/effect/model-kit.effect';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()),
+  providers: [provideRouter(routes, withComponentInputBinding()), provideClientHydration(), provideHttpClient(withFetch()),
   provideStore(),
   provideState({ name: 'manga', reducer: mangaReducer }),
   provideState({ name: 'modelKit', reducer: modelKitReducer }),

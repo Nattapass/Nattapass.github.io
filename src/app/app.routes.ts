@@ -21,6 +21,6 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
   },
-  { path: '404', component: DashboardComponent },
+  { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }, 
   { path: '**', component: DashboardComponent }
 ];

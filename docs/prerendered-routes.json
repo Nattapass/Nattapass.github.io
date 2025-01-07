@@ -1,6 +1,6 @@
 {
   "routes": {
-    "/my-collection/404": {},
+    "/my-collection": {},
     "/my-collection/dashboard": {},
     "/my-collection/manga": {},
     "/my-collection/model-kit": {},
