@@ -6,11 +6,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
-    path: '',
-    pathMatch: "full",
-    redirectTo: 'manga',
-  },
-  {
     path: 'register',
     component: RegisterComponent,
   },
@@ -25,5 +20,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-  }
+  },
+  { path: '404', component: DashboardComponent },
+  { path: '**', component: DashboardComponent }
 ];
