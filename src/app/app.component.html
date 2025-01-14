@@ -47,11 +47,11 @@
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a routerLink="/" class=" rounded-md px-3 py-2 text-sm font-medium" aria-current="page"
                 (click)="selectTab('Dashboard')"
-                [ngClass]="[(currentTab === 'Dashboard' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Dashboard</a>
+                [ngClass]="[(selectedOption() === 'Dashboard' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Dashboard</a>
               <a routerLink="/manga" (click)="selectTab('Manga')" class="rounded-md px-3 py-2 text-sm font-medium"
-                [ngClass]="[(currentTab === 'Manga' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Books</a>
-              <a routerLink="/model-kit" (click)="selectTab('Manga')" class="rounded-md px-3 py-2 text-sm font-medium"
-                [ngClass]="[(currentTab === 'Manga' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Models</a>
+                [ngClass]="[(selectedOption() === 'Manga' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Books</a>
+              <a routerLink="/model-kit" (click)="selectTab('Models')" class="rounded-md px-3 py-2 text-sm font-medium"
+                [ngClass]="[(selectedOption() === 'Models' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')]">Models</a>
             </div>
           </div>
         </div>

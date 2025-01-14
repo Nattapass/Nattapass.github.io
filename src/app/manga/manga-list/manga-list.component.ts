@@ -42,7 +42,7 @@ export class MangaListComponent {
   }
 
   ngOnInit(): void {
-    console.log('manga list', this.mangaList);
+    // console.log('manga list', this.mangaList);
 
     this.store.dispatch(loadManga());
     this.mangaList$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
